@@ -110,6 +110,13 @@ Routes definition
                     }
                 }
             })
+
+            this.router.delete('/:endpoint/:id', this.passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), (req, res) => {
+                console.log(req.params)
+                Controllers[req.params.endpoint].deleteOne(req)
+                    .then(() => res.redirect('/'))
+                    .catch(error => renderErrorVue('index', req, res, error,  'Request failed'))
+            })
         }
 
         init(){

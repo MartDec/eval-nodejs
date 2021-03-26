@@ -116,6 +116,14 @@ Commons
     .flexColumn > *{
         margin: auto;
     }
+
+    .alignCenter {
+        align-items: center;
+    }
+
+    .hide {
+        display: none;
+    }
 /**/
 
 

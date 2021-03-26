@@ -8,7 +8,8 @@ Service definition
             message: message,
             err: null,
             data: data,
-            status: 200
+            status: 200,
+            user: req.user
         }
 
         return res.status(200).json(apiResponse);
@@ -21,7 +22,8 @@ Service definition
             message: message,
             err: err,
             data: null,
-            status: 500
+            status: 500,
+            user: req.user
         }
 
         return res.status(500).json(apiResponse);
@@ -34,7 +36,8 @@ Service definition
             message: message,
             err: null,
             data: data,
-            status: 200
+            status: 200,
+            user: req.user
         }
 
         // Check for redirection
@@ -50,7 +53,8 @@ Service definition
             message: message,
             err: err,
             data: null,
-            status: 500
+            status: 500,
+            user: req.user
         }
 
         return res.status(500).render(vue, { data: apiResponse });

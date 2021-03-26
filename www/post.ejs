@@ -1,3 +1,7 @@
+<% post = data.data %>
+<% user = data.user %>
+<% isAuthor = user._id.toString() === post.author._id.toString() %>
+
 <!-- Importer le header en EJS -->
 <%- include('statics/header') -%>
 
@@ -5,11 +9,26 @@
     <section>
         <%- include('components/error') -%>
         <div class="post-header">
-            <h2><%- data.data.headline %></h2>
+            <div class="post-header flexBox spaceBetween alignCenter">
+                <h2><%- post.headline %></h2>
+                <% if (isAuthor) { %>
+                    <div class="admin-actions">
+                        <a href="#" action-type="update">update</a>
+                        <a href="#" action-type="delete" post-id="<%- post._id.toString() %>">delete</a>
+                    </div>
+                <% } %>
+            </div>
         </div>
-        <p><%- data.data.body %></p>
+        <p><%- post.body %></p>
+        <% if (isAuthor) { %>
+            <div class="update-form hide">
+                <%- include('components/form-post') -%>
+            </div>
+        <% } %>
     </section>
 </main>
 
 <!-- Importer le footer en EJS -->
 <%- include('statics/footer') -%>
+
+<script src="/js/post.js"></script>
