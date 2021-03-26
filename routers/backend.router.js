@@ -28,6 +28,16 @@ Routes definition
                 .catch( apiError => renderErrorVue('index', req, res, apiError,  'Request failed') )
             })
 
+            // [BACKOFFICE] Render entity vue
+            this.router.get('/:endpoint/:id', this.passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), (req, res) => {
+                const endpoint = req.params.endpoint
+                const id = req.params.id
+
+                Controllers[endpoint].readOne(id)
+                    .then(response => renderSuccessVue(endpoint, req, res, response,  'Request succeed', false))
+                    .catch(error => renderErrorVue(endpoint, req, res, error,  'Request failed'))
+            })
+
             // [BACKOFFICE] Render login vue
             this.router.get('/login', (req, res) => {
                 renderSuccessVue('login', req, res, null, 'Request succeed', false)
@@ -95,8 +105,8 @@ Routes definition
 
                         // Use the controller to create nex object
                         Controllers[req.params.endpoint].createOne(req)
-                        .then( apiResponse =>  res.redirect('/', req, res, 'Request succeed', apiResponse, true) )
-                        .catch( apiError => renderErrorVue('index', req, res, apiError,  'Request failed') )
+                            .then( apiResponse =>  res.redirect('/', req, res, 'Request succeed', apiResponse, true) )
+                            .catch( apiError => renderErrorVue('index', req, res, apiError,  'Request failed') )
                     }
                 }
             })

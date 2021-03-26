@@ -3,9 +3,7 @@
 
 <main>
     <section>
-        <% if (typeof data.err === 'string') { %>
-            <span><%- data.err %></span>
-        <% } %>
+        <%- include('components/error') -%>
         <div class="login">
             <h3>Login</h3>
             <%- include('components/form-login') -%>

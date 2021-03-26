@@ -1,0 +1,15 @@
+<!-- Importer le header en EJS -->
+<%- include('statics/header') -%>
+
+<main>
+    <section>
+        <%- include('components/error') -%>
+        <div class="post-header">
+            <h2><%- data.data.headline %></h2>
+        </div>
+        <p><%- data.data.body %></p>
+    </section>
+</main>
+
+<!-- Importer le footer en EJS -->
+<%- include('statics/footer') -%>
