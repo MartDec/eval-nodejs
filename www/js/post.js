@@ -2,7 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const host = `${location.protocol}//${location.host}`
     const adminActions = document.querySelectorAll('.admin-actions a')
-    const updateForm = document.querySelector('.update-form')
+    const updateFormWrapper = document.querySelector('.update-form')
+    const updateForm = updateFormWrapper.querySelector('form')
+
+    const toggleUpdateForm = () => {
+        updateFormWrapper.classList.toggle('hide')
+        const updateBtn = document.querySelector('.admin-actions a[action-type="update"]')
+        updateBtn.innerText = updateBtn.innerText === 'update' ? 'cancel' : 'update'
+    }
 
     const deletePost = event => {
         const confirmDelete = confirm('Do you want to delete this post ?')
@@ -21,14 +28,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const type = action.getAttribute('action-type')
             switch (type) {
                 case 'update':
-                    updateForm.classList.toggle('hide')
-                    event.target.innerText = event.target.innerText === 'update' ? 'cancel' : 'update'
+                    toggleUpdateForm()
                     break
                 case 'delete':
                     deletePost(event)
                     break
             }
         })
+    })
+
+    updateForm.addEventListener('submit', event => {
+        event.preventDefault()
+
+        const postId = event.target.querySelector('#post-id').value
+        const options = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                headline: event.target.querySelector('#headline').value,
+                body: event.target.querySelector('#body').value
+            })
+        }
+
+        fetch(`${host}/post/${postId}`, options)
+            .then(response => response.ok ? response.json() : response.statusText)
+            .then(data => {
+                event.target.querySelector('#headline').value = data.headline
+                event.target.querySelector('#body').value = data.body
+                document.getElementById('post-headline').innerText = data.headline
+                document.getElementById('post-body').innerText = data.body
+                toggleUpdateForm()
+            })
+            .catch(error => console.error(error))
     })
 
 })

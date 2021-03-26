@@ -5,13 +5,17 @@
     Créer le formulaire de connexion
 -->
 
-<form action="/post<%- postExists ? '/' + post._id.toString() : null %>" method="POST">
+<form action="/post" method="POST">
+
+    <% if (postExists) { %>
+        <input type="hidden" id="post-id" value="<%- post._id.toString() %>">
+    <% } %>
 
     <label for="headline">Titre</label>
-    <input type="text" name="headline" required minlength="2" placeholder="Mon super titre" value="<%- postExists ? post.headline : null %>">
+    <input type="text" name="headline" id="headline" required minlength="2" placeholder="Mon super titre" value="<%- postExists ? post.headline : null %>">
 
     <label for="body">Contenu</label>
-    <textarea name="body" required minlength="2" placeholder="Mon super contenu"><%- postExists ? post.body : null %></textarea>
+    <textarea name="body" id="body" required minlength="2" placeholder="Mon super contenu"><%- postExists ? post.body : null %></textarea>
 
     <button type="submit">Ajouter</button>
 

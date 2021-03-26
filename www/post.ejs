@@ -10,7 +10,7 @@
         <%- include('components/error') -%>
         <div class="post-header">
             <div class="post-header flexBox spaceBetween alignCenter">
-                <h2><%- post.headline %></h2>
+                <h2 id="post-headline"><%- post.headline %></h2>
                 <% if (isAuthor) { %>
                     <div class="admin-actions">
                         <a href="#" action-type="update">update</a>
@@ -19,7 +19,7 @@
                 <% } %>
             </div>
         </div>
-        <p><%- post.body %></p>
+        <p id="post-body"><%- post.body %></p>
         <% if (isAuthor) { %>
             <div class="update-form hide">
                 <%- include('components/form-post') -%>

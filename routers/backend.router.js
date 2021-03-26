@@ -111,6 +111,30 @@ Routes definition
                 }
             })
 
+            // [BACKOFFICE] get data from client to create object, protected by Passport MiddleWare
+            this.router.put('/:endpoint/:id', this.passport.authenticate('jwt', { session: false, failureRedirect: '/' }), (req, res) => {
+                // Check body data
+                if( typeof req.body === 'undefined' || req.body === null || Object.keys(req.body).length === 0 ){
+                    return renderErrorVue('index', req, res, 'No data provided',  'Request failed')
+                }
+                else{
+                    // Check body data
+                    const { ok, extra, miss } = checkFields( Mandatory[req.params.endpoint], req.body );
+
+                    // Error: bad fields provided
+                    if( !ok ){ return renderErrorVue('index', `/${req.params.endpoint}`, 'POST', res, 'Bad fields provided', { extra, miss }) }
+                    else{
+                        // Add author _id
+                        req.body.author = req.user._id;
+
+                        // Use the controller to create nex object
+                        Controllers[req.params.endpoint].updateOne(req)
+                            .then(apiResponse =>  res.json(apiResponse))
+                            .catch(apiError => res.json(apiError))
+                    }
+                }
+            })
+
             this.router.delete('/:endpoint/:id', this.passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), (req, res) => {
                 console.log(req.params)
                 Controllers[req.params.endpoint].deleteOne(req)
