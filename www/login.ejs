@@ -1,0 +1,21 @@
+<!-- Importer le header en EJS -->
+<%- include('statics/header') -%>
+
+<main>
+    <section>
+        <% if (typeof data.err === 'string') { %>
+            <span><%- data.err %></span>
+        <% } %>
+        <div class="login">
+            <h3>Login</h3>
+            <%- include('components/form-login') -%>
+        </div>
+        <div class="register">
+            <h3>Register</h3>
+            <%- include('components/form-register') -%>
+        </div>
+    </section>
+</main>
+
+<!-- Importer le footer en EJS -->
+<%- include('statics/footer') -%> 
