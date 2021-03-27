@@ -42,6 +42,10 @@ CRUD methods
                     path: 'comments',
                     populate: { path: 'author' }
                 })
+                .populate({
+                    path: 'comments',
+                    populate: { path: 'likes' }
+                })
                 .exec( (err, data) => {
                     if( err ){ return reject(err) }
                     else{ return resolve(data) }

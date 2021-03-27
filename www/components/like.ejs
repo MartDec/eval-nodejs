@@ -1,9 +1,17 @@
-<% user = data.user %>
+<% let user = data.user %>
+<% let hasLike = false %>
+<% let likeId = null %>
+<% for (let like of entity.likes) {
+    if (like.author.toString() === user._id.toString()) {
+        hasLike = true
+        likeId = like._id.toString()
+    }
+} %>
 
-<div class="like-infos flexBox alignCenter">
-    <span class="like-wrapper mr-1">
-        <span class="material-icons border">favorite_border</span>
-        <span class="material-icons filled hide">favorite</span>
+<div class="like-wrapper flexBox alignCenter"<%= hasLike ? 'like-id=' + likeId : null %> entity-type="<%= type %>" entity-id="<%= entity._id.toString() %>">
+    <span class="like-icon mr-1<%= hasLike ? ' liked' : null %>">
+        <span class="material-icons border<%= hasLike ? ' hide' : null %>">favorite_border</span>
+        <span class="material-icons filled<%= hasLike ? null : ' hide' %>">favorite</span>
     </span>
-    <span> - <%= entity.likes.length %></span>
+    <span class="like-counter"><span class="value"><%= entity.likes.length %></span></span>
 </div>

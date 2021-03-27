@@ -11,7 +11,7 @@ Definition
     const MySchema = new Schema({
         // Schema.org
         '@context': { type: String, default: 'http://schema.org' },
-        '@type': { type: String, default: 'Comment' },
+        '@type': { type: String, default: 'Like' },
 
         // Associer le profil utilisateur
         author: {
@@ -22,7 +22,15 @@ Definition
         // Associer le post
         post: {
             type: Schema.Types.ObjectId,
-            ref: 'post'
+            ref: 'post',
+            default: null
+        },
+
+        // Associer le post
+        comment: {
+            type: Schema.Types.ObjectId,
+            ref: 'post',
+            default: null
         },
 
         // Définir une valeur par défaut

@@ -6,7 +6,7 @@ Definition
         login: [ 'password', 'email' ],
         post: [ 'headline', 'body' ],
         comment: [ 'body', 'post' ],
-        like: [ 'post' ]
+        like: [ 'post', 'comment' ]
     } 
 //
 

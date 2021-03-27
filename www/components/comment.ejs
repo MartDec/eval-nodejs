@@ -11,7 +11,7 @@
             </div>
         <% } %>
     </div>
-    <%- include('like', { entity: comment }) %>
+    <%- include('like', { type: 'comment', entity: comment }) %>
     <% if (isAuthor) { %>
         <div class="update-form hide" comment-id="<%= comment._id.toString() %>">
             <%- include('form-comment', { comment: comment }) %>

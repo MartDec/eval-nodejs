@@ -21,7 +21,7 @@
                 </div>
             </div>
             <p id="post-body"><%- post.body %></p>
-            <%- include('components/like', { entity: post }) %>
+            <%- include('components/like', { type: 'post', entity: post }) %>
             <% if (isAuthor) { %>
                 <div class="update-form hide">
                     <%- include('components/form-post') -%>
@@ -46,5 +46,5 @@
 <!-- Importer le footer en EJS -->
 <%- include('statics/footer') -%>
 
-<script src="/js/post.js"></script>
-<script src="/js/comment.js"></script>
+<script src="/js/post.js" type="module"></script>
+<script src="/js/comment.js" type="module"></script>

@@ -89,12 +89,18 @@ Routes definition
 
             // [BACKOFFICE] get data from client to create object, protected by Passport MiddleWare
             this.router.post('/:endpoint', this.passport.authenticate('jwt', { session: false, failureRedirect: '/' }), async (req, res) => {
+                const endpoint = req.params.endpoint
+                if (endpoint === 'like') {
+                    const body = { comment: null, post: null }
+                    body[req.body.type] = req.body.id
+                    req.body = body
+                }
+
                 // Check body data
                 if( typeof req.body === 'undefined' || req.body === null || Object.keys(req.body).length === 0 ){ 
                     return renderErrorVue('index', req, res, 'No data provided',  'Request failed')
                 }
                 else{
-                    const endpoint = req.params.endpoint
                     // Check body data
                     const { ok, extra, miss } = checkFields( Mandatory[endpoint], req.body );
 
@@ -106,7 +112,7 @@ Routes definition
 
                         try {
                             const entity = await Controllers[endpoint].createOne(req)
-                            return (['comment'].indexOf(endpoint) !== -1)
+                            return (['comment', 'like'].indexOf(endpoint) !== -1)
                                 ? res.json(entity)
                                 : res.redirect('/', req, res, entity, 'Request succeed', true)
                         } catch (error) {
@@ -144,7 +150,7 @@ Routes definition
                 try {
                     const endpoint = req.params.endpoint
                     const deleted = await Controllers[endpoint].deleteOne(req)
-                    return (['comment'].indexOf(endpoint) !== -1)
+                    return ([ 'comment', 'like' ].indexOf(endpoint) !== -1)
                         ? res.json(deleted)
                         : res.redirect('/')
                 } catch (error) {

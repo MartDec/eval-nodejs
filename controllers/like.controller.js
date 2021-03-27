@@ -11,7 +11,15 @@ CRUD methods
         return new Promise( (resolve, reject) => {
             Models.like.create( req.body )
                 .then(async data => {
-                    resolve(data)
+                    const type = req.body.post === null ? 'comment' : 'post'
+                    const id = req.body[type]
+                    const parent = await Models[type].findById(id)
+                    parent.likes.push(data._id)
+                    await parent.save()
+
+                    Models.like.findById(data._id)
+                        .populate('author', [ '-password' ])
+                        .exec((err, like) => resolve(like))
                 })
                 .catch( err => reject(err) )
         })

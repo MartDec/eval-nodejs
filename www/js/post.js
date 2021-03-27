@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (updateForm) {
         updateForm.addEventListener('submit', event => {
             event.preventDefault()
-            console.log('hello')
 
             const postId = event.target.querySelector('#post-id').value
             const options = {

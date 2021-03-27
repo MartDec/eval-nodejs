@@ -14,7 +14,7 @@ CRUD methods
                     const post = await Models.post.findById(data.post)
                     post.comments.push(data._id)
                     await post.save()
-                    const comment = Models.comment.findById(data._id)
+                    Models.comment.findById(data._id)
                         .populate('author', ['-password'])
                         .exec((err, comment) => {
                             resolve(comment)
