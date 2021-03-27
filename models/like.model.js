@@ -13,8 +13,6 @@ Definition
         '@context': { type: String, default: 'http://schema.org' },
         '@type': { type: String, default: 'Comment' },
 
-        body: String,
-
         // Associer le profil utilisateur
         author: {
             type: Schema.Types.ObjectId,
@@ -27,11 +25,6 @@ Definition
             ref: 'post'
         },
 
-        likes: [{
-            type: Schema.Types.ObjectId,
-            ref: 'like'
-        }],
-
         // Définir une valeur par défaut
         creationDate: { type: Date, default: new Date() },
         dateModified: { type: Date, default: new Date() },
@@ -42,5 +35,5 @@ Definition
 /* 
 Export
 */
-    module.exports = mongoose.model('comment', MySchema)
+    module.exports = mongoose.model('like', MySchema)
 //

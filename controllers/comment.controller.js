@@ -29,6 +29,7 @@ CRUD methods
             // Mongoose population to get associated data
             Models.comment.find()
                 .populate('author', [ '-password' ])
+                .populate('likes')
                 .exec( (err, data) => {
                     if( err ){ return reject(err) }
                     else{ return resolve(data) }
@@ -41,6 +42,7 @@ CRUD methods
             // Mongoose population to get associated data
             Models.comment.findById( id )
                 .populate('author', [ '-password' ])
+                .populate('likes')
                 .exec( (err, data) => {
                     if( err ){ return reject(err) }
                     else{ return resolve(data) }

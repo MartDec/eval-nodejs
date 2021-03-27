@@ -160,4 +160,9 @@ Global
         font-weight: 900;
         width: 100%;
     }
+
+    .like-wrapper {
+        cursor: pointer;
+        max-height: 24px;
+    }
 /**/

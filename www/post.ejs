@@ -21,6 +21,7 @@
                 </div>
             </div>
             <p id="post-body"><%- post.body %></p>
+            <%- include('components/like', { entity: post }) %>
             <% if (isAuthor) { %>
                 <div class="update-form hide">
                     <%- include('components/form-post') -%>
