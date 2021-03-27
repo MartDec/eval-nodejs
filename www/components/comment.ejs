@@ -1,7 +1,7 @@
 <% isAuthor = (user._id.toString() === comment.author._id.toString()) %>
 
 <div class="comment-wrapper" comment-id="<%= comment._id.toString() %>">
-    <p class="single-comment-body m-0"><%= comment.body %></p>
+    <p class="single-comment-body mb-1"><%= comment.body %></p>
     <div class="comment-footer flexBox spaceBetween alignCenter">
         <p class="single-comment-author m-0"><%= comment.author.givenName %> <%= comment.author.familyName %></p>
         <% if (isAuthor) { %>

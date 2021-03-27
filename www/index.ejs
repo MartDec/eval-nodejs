@@ -11,6 +11,12 @@
         <% for(let item of data.data) { %>
             <li>
                 <h4><%- item.headline %></h4>
+                <div class="details flexBox">
+                    <span class="mr-2"><%- include('components/like', { type: 'post', entity: item }) %></span>
+                    <span class="flexBox alignCenter">
+                        <span class="material-icons mr-1">question_answer</span> <%= item.comments.length %>
+                    </span>
+                </div>
                 <a href="/post/<%- item._id %>">Voir plus</a>
             </li>
         <% } %>

@@ -129,6 +129,14 @@ Commons
         margin-right: 1rem;
     }
 
+    .mb-1 {
+        margin-bottom: 1rem;
+    }
+
+    .mr-2 {
+        margin-right: 2rem;
+    }
+
     .m-0 {
         margin: 0!important;
     }
