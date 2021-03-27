@@ -27,6 +27,10 @@ Reset
         padding: 1rem;
         margin-bottom: 1rem;
     }
+
+    ul {
+        list-style-type: none;
+    }
     
     form ul, #instagramUserHeader, #instagramFeed{
         list-style: none;
@@ -58,7 +62,7 @@ Reset
         margin-top: 1rem;
     }
 
-    input + [type="submit"]{
+    input + [type="submit"] {
         margin-top: 2rem;
     }
 /**/
@@ -154,7 +158,7 @@ Global
     }
 
     main{
-        height: calc(100vh - 10rem);
+        min-height: calc(100vh - 10rem);
     }
 
     header, footer{
