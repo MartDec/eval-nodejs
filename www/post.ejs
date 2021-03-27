@@ -5,26 +5,37 @@
 <!-- Importer le header en EJS -->
 <%- include('statics/header') -%>
 
-<main>
+<main id="post">
     <section>
         <%- include('components/error') -%>
-        <div class="post-header">
-            <div class="post-header flexBox spaceBetween alignCenter">
-                <h2 id="post-headline"><%- post.headline %></h2>
-                <% if (isAuthor) { %>
-                    <div class="admin-actions">
-                        <a href="#" action-type="update">update</a>
-                        <a href="#" action-type="delete" post-id="<%- post._id.toString() %>">delete</a>
-                    </div>
+        <div class="post-wrapper">
+            <div class="post-header">
+                <div class="post-header flexBox spaceBetween alignCenter">
+                    <h2 id="post-headline"><%- post.headline %></h2>
+                    <% if (isAuthor) { %>
+                        <div class="admin-actions">
+                            <a href="#" class="mr-1" action-type="update">update</a>
+                            <a href="#" action-type="delete" post-id="<%- post._id.toString() %>">delete</a>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+            <p id="post-body"><%- post.body %></p>
+            <% if (isAuthor) { %>
+                <div class="update-form hide">
+                    <%- include('components/form-post') -%>
+                </div>
+            <% } %>
+        </div>
+        <div class="comments-wrapper">
+            <h3>Comments</h3>
+            <%- include('components/form-comment') -%>
+            <div class="user-comments">
+                <% for (let comment of post.comments) {%>
+                    <%- include('components/comment', { comment: comment, user: user }) -%>
                 <% } %>
             </div>
         </div>
-        <p id="post-body"><%- post.body %></p>
-        <% if (isAuthor) { %>
-            <div class="update-form hide">
-                <%- include('components/form-post') -%>
-            </div>
-        <% } %>
     </section>
 </main>
 

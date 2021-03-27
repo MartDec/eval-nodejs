@@ -9,21 +9,22 @@ CRUD methods
 */
     const createOne = req => {
         return new Promise( (resolve, reject) => {
-            Models.post.create( req.body )
-            .then( data => resolve(data) )
-            .catch( err => reject(err) )
+            Models.comment.create( req.body )
+                .then(async data => {
+                    const post = await Models.post.findById(data.post)
+                    post.comments.push(data._id)
+                    await post.save()
+                    resolve(data)
+                })
+                .catch( err => reject(err) )
         })
     }
  
     const readAll = () => {
         return new Promise( (resolve, reject) => {
             // Mongoose population to get associated data
-            Models.post.find()
+            Models.comment.find()
                 .populate('author', [ '-password' ])
-                .populate({
-                    path: 'comments',
-                    populate: { path: 'author' }
-                })
                 .exec( (err, data) => {
                     if( err ){ return reject(err) }
                     else{ return resolve(data) }
@@ -34,12 +35,8 @@ CRUD methods
     const readOne = id => {
         return new Promise( (resolve, reject) => {
             // Mongoose population to get associated data
-            Models.post.findById( id )
+            Models.comment.findById( id )
                 .populate('author', [ '-password' ])
-                .populate({
-                    path: 'comments',
-                    populate: { path: 'author' }
-                })
                 .exec( (err, data) => {
                     if( err ){ return reject(err) }
                     else{ return resolve(data) }
@@ -50,7 +47,7 @@ CRUD methods
     const updateOne = req => {
         return new Promise( (resolve, reject) => {
             // Get post by ID
-            Models.post.findById( req.params.id )
+            Models.comment.findById( req.params.id )
             .then( post => {
                 // Update object
                 post.headline = req.body.headline;
@@ -73,7 +70,7 @@ CRUD methods
     const deleteOne = req => {
         return new Promise( (resolve, reject) => {
              // Delete object
-             Models.post.findByIdAndDelete( req.params.id, (err, deleted) => {
+             Models.comment.findByIdAndDelete( req.params.id, (err, deleted) => {
                 if( err ){ return reject(err) }
                 else{ return resolve(deleted) };
             })
