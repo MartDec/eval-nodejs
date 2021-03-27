@@ -24,25 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const createComment = data => {
-        const wrapper = document.createElement('div')
-        const body = document.createElement('p')
-        const author = document.createElement('p')
-        const separator = document.createElement('hr')
-
-        wrapper.classList.add('comment-wrapper')
-        body.classList.add('single-comment-body')
-        author.classList.add('single-comment-author')
-
-        body.innerText = data.body
-        author.innerText = data.author.givenName
-
-        wrapper.appendChild(body)
-        wrapper.appendChild(author)
-        wrapper.appendChild(separator)
-        commentsWrapper.appendChild(wrapper)
-    }
-
     adminActions.forEach(action => {
         action.addEventListener('click', event => {
             event.preventDefault()
@@ -109,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof data === 'string')
                     return console.error(data)
 
-                createComment(data)
                 event.target.reset()
+                location.reload()
             })
             .catch(error => console.error(error))
     })
