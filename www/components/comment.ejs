@@ -1,13 +1,20 @@
-<div class="comment-wrapper">
-    <p class="single-comment-body m-0"><%- comment.body %></p>
+<% isAuthor = (user._id.toString() === comment.author._id.toString()) %>
+
+<div class="comment-wrapper" comment-id="<%= comment._id.toString() %>">
+    <p class="single-comment-body m-0"><%= comment.body %></p>
     <div class="comment-footer flexBox spaceBetween alignCenter">
-        <p class="single-comment-author m-0"><%- comment.author.givenName %> <%- comment.author.familyName %></p>
-        <% if (user._id.toString() === comment.author._id.toString()) { %>
+        <p class="single-comment-author m-0"><%= comment.author.givenName %> <%= comment.author.familyName %></p>
+        <% if (isAuthor) { %>
             <div class="admin-actions">
-                <a href="#" class="mr-1">update</a>
-                <a href="#">delete</a>
+                <a href="#" action-type="update" comment-id="<%= comment._id.toString() %>" class="mr-1">update</a>
+                <a href="#" action-type="delete" comment-id="<%= comment._id.toString() %>">delete</a>
             </div>
         <% } %>
     </div>
+    <% if (isAuthor) { %>
+        <div class="update-form hide" comment-id="<%= comment._id.toString() %>">
+            <%- include('form-comment', { comment: comment }) %>
+        </div>
+    <% } %>
     <hr>
 </div>

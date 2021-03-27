@@ -27,9 +27,12 @@
                 </div>
             <% } %>
         </div>
+        <hr>
         <div class="comments-wrapper">
             <h3>Comments</h3>
-            <%- include('components/form-comment') -%>
+            <div class="default-comment-form">
+                <%- include('components/form-comment') -%>
+            </div>
             <div class="user-comments">
                 <% for (let comment of post.comments) {%>
                     <%- include('components/comment', { comment: comment, user: user }) -%>
@@ -43,3 +46,4 @@
 <%- include('statics/footer') -%>
 
 <script src="/js/post.js"></script>
+<script src="/js/comment.js"></script>

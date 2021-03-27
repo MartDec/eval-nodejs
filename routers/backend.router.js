@@ -140,11 +140,16 @@ Routes definition
                 }
             })
 
-            this.router.delete('/:endpoint/:id', this.passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), (req, res) => {
-                console.log(req.params)
-                Controllers[req.params.endpoint].deleteOne(req)
-                    .then(() => res.redirect('/'))
-                    .catch(error => renderErrorVue('index', req, res, error,  'Request failed'))
+            this.router.delete('/:endpoint/:id', this.passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), async (req, res) => {
+                try {
+                    const endpoint = req.params.endpoint
+                    const deleted = await Controllers[endpoint].deleteOne(req)
+                    return (['comment'].indexOf(endpoint) !== -1)
+                        ? res.json(deleted)
+                        : res.redirect('/')
+                } catch (error) {
+                    return renderErrorVue('index', req, res, error,  'Request failed')
+                }
             })
         }
 

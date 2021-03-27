@@ -1,6 +1,7 @@
 <% post = data.data %>
+<% commentExists = typeof comment !== "undefined" %>
 
 <form action="#" method="post" post-id="<%- post._id.toString() %>">
-    <textarea name="comment-body" id="comment-body" placeholder="Your comment..."></textarea>
+    <textarea name="comment-body" id="comment-body" placeholder="Your comment..."><%- commentExists ? comment.body : null %></textarea>
     <input type="submit" value="send">
 </form>
