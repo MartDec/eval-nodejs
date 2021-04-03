@@ -6,11 +6,12 @@
     <div class="popup-body">
         <% if (comments.length > 0) {
             for (let comment of comments) { %>
-                <blockquote>
+                <blockquote class="mb-1">
                     <p>
                         <em><%= comment.body %></em>
                     </p>
                 </blockquote>
+                <p>de <%= comment.author.givenName %></p>
             <% }
         } else { %>
             <p class="mt-1">Aucun commentaires pour le moment</p>
