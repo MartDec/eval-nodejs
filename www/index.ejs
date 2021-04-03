@@ -1,7 +1,7 @@
 <!-- Importer le header en EJS -->
 <%- include('statics/header') -%>
 
-<main>
+<main id="index">
     <h2>Page protégée</h2>
 
     <h3>Ajouter un article</h3>
@@ -15,7 +15,8 @@
                 <div class="details flexBox">
                     <span class="mr-2"><%- include('components/like', { type: 'post', entity: item }) %></span>
                     <span class="flexBox alignCenter">
-                        <span class="material-icons mr-1">question_answer</span> <%= item.comments.length %>
+                        <span post-id="<%= item._id.toString() %>" class="material-icons comment-preview-opener mr-1">question_answer</span> <%= item.comments.length %>
+                        <%- include('components/comments-preview', { comments: item.comments, post: item._id.toString() }) %>
                     </span>
                 </div>
                 <a href="/post/<%- item._id %>">Voir plus</a>
@@ -24,6 +25,8 @@
         <% } %>
     </ul>
 </main>
+
+<script src="/js/comments-preview.js"></script>
 
 <!-- Importer le footer en EJS -->
 <%- include('statics/footer') -%>  

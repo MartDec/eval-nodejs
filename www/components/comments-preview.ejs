@@ -1,0 +1,19 @@
+<div class="comments-preview hide" post-id="<%= post %>">
+    <div class="popup-header flexBox spaceBetween">
+        <span class="post-title">Commentaires</span>
+        <span class="material-icons close-popup">close</span>
+    </div>
+    <div class="popup-body">
+        <% if (comments.length > 0) {
+            for (let comment of comments) { %>
+                <blockquote>
+                    <p>
+                        <em><%= comment.body %></em>
+                    </p>
+                </blockquote>
+            <% }
+        } else { %>
+            <p class="mt-1">Aucun commentaires pour le moment</p>
+        <% } %>
+    </div>
+</div>
