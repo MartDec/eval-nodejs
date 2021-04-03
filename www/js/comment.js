@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const host = `${location.protocol}//${location.host}`
     const commentActions = document.querySelectorAll('.comment-wrapper .admin-actions a')
+    const commentForms = document.querySelectorAll('.comment-wrapper .update-form')
 
     const toggleUpdateForm = commentId => {
         const formWrapper = document.querySelector(`.comment-wrapper .update-form[comment-id="${commentId}"]`)
@@ -21,6 +22,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const updateComment = comment => {
+        const options = {
+            method: 'PUT',
+            body: JSON.stringify({
+                body: comment.body,
+                post: comment.post
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        }
+        fetch(`${host}/comment/${comment.id}`, options)
+            .then(response => response.ok ? response.json() : response.statusText)
+            .then(data => {
+                document
+                    .querySelector(`.comment-wrapper[comment-id="${data._id.toString()}"] .single-comment-body`)
+                    .innerHTML = data.body
+                toggleUpdateForm(comment.id)
+            })
+            .catch(error => console.error(error))
+    }
+
     commentActions.forEach(action => {
         action.addEventListener('click', event => {
             event.preventDefault()
@@ -34,6 +55,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     deleteComment(event.target.getAttribute('comment-id'))
                     break
             }
+        })
+    })
+
+    commentForms.forEach(form => {
+        form.addEventListener('submit', event => {
+            event.preventDefault()
+
+            const commentId = event.target.parentElement.getAttribute('comment-id')
+            const commentBody = event.target.querySelector('textarea').value
+            const commentPost = event.target.getAttribute('post-id')
+            updateComment({
+                id: commentId,
+                body: commentBody,
+                post: commentPost
+            })
         })
     })
 

@@ -39,7 +39,6 @@ CRUD methods
 
     const readOne = id => {
         return new Promise( (resolve, reject) => {
-            // Mongoose population to get associated data
             Models.like.findById( id )
                 .populate('author', [ '-password' ])
                 .exec( (err, data) => {
@@ -51,22 +50,15 @@ CRUD methods
 
     const updateOne = req => {
         return new Promise( (resolve, reject) => {
-            // Get post by ID
             Models.like.findById( req.params.id )
             .then( post => {
-                // Update object
                 post.headline = req.body.headline;
                 post.body = req.body.body;
                 post.dateModified = new Date();
 
-                // TODO: Check author
-                /* if( post.author !== req.user._id ){ return reject('User not authorized') }
-                else{ } */
-
-                // Save post changes
                 post.save()
-                .then( updatedPost => resolve(updatedPost) )
-                .catch( updateError => reject(updateError) )
+                    .then( updatedPost => resolve(updatedPost) )
+                    .catch( updateError => reject(updateError) )
             })
             .catch( err => reject(err) )
         })
@@ -74,26 +66,10 @@ CRUD methods
 
     const deleteOne = req => {
         return new Promise( (resolve, reject) => {
-             // Delete object
              Models.like.findByIdAndDelete( req.params.id, (err, deleted) => {
-                if( err ){ return reject(err) }
-                else{ return resolve(deleted) };
+                if (err) { return reject(err) }
+                else { return resolve(deleted) }
             })
-            
-            // Get post by ID
-            /* Models.post.findById( req.params.id )
-            .then( post => {
-                // TODO: Check author
-                if( post.author !== req.user._id ){ return reject('User not authorized') }
-                else{
-                    // Delete object
-                    Models.post.findByIdAndDelete( req.params.id, (err, deleted) => {
-                        if( err ){ return reject(err) }
-                        else{ return resolve(deleted) };
-                    })
-                }
-            })
-            .catch( err => reject(err) ); */
         });
     }
 //
