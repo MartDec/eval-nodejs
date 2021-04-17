@@ -64,6 +64,10 @@ Reset
     input + [type="submit"] {
         margin-top: 2rem;
     }
+
+    textarea {
+        resize: vertical;
+    }
 /**/
 
 
