@@ -1,19 +1,15 @@
 <!-- Importer le header en EJS -->
 <%- include('statics/header') -%>
 
-<main id="index">
-    <%- include('components/error') -%>
-    <h2>Page protégée</h2>
-
-    <h3>Ajouter un article</h3>
-    <%- include('components/form-post') -%>
-
-    <h3>Liste des derniers articles</h3>
+<main id="posts">
+    <%- include('components/error') %>
+    <h2>Tous les articles</h2>
     <ul>
         <% for(let item of data.data) { %>
+            <% isAuthor = data.user._id.toString() === item.author._id.toString() %>
             <li>
                 <h4><%- item.headline %></h4>
-                <p><%= item.author.givenName %> <%= item.author.familyName %></p>
+                <p><%= isAuthor ? 'Moi' : item.author.givenName + item.author.familyName %></p>
                 <div class="details flexBox">
                     <span class="mr-2"><%- include('components/like', { type: 'post', entity: item }) %></span>
                     <span class="flexBox alignCenter">

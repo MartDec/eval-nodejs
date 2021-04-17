@@ -11,7 +11,10 @@
         <div class="post-wrapper">
             <div class="post-header">
                 <div class="post-header flexBox spaceBetween alignCenter">
-                    <h2 id="post-headline"><%- post.headline %></h2>
+                    <div class="title">
+                        <h2 id="post-headline" class="m-0"><%- post.headline %></h2>
+                        <p><%= post.author.givenName %> <%= post.author.familyName %></p>
+                    </div>
                     <% if (isAuthor) { %>
                         <div class="admin-actions">
                             <a href="#" class="mr-1" action-type="update">update</a>

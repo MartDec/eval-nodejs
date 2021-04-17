@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const post = opener.getAttribute('post-id')
         const targetPopup = document.querySelector(`.comments-preview[post-id="${post}"]`)
         const targetPopupCloser = targetPopup.querySelector('.close-popup')
+
         opener.addEventListener('click', event => {
             event.preventDefault()
 

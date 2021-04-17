@@ -1,4 +1,4 @@
-/* 
+/*
 Reset
 */
     :root{
@@ -15,9 +15,8 @@ Reset
         text-transform: uppercase;
         line-height: 1;
         margin-bottom: 0;
-        width: 100%;
     }
-    
+
     a{
         color: inherit;
         text-decoration: none;
@@ -31,20 +30,20 @@ Reset
     ul {
         list-style-type: none;
     }
-    
+
     form ul, #instagramUserHeader, #instagramFeed{
         list-style: none;
     }
-    
+
     form ul{
         margin-bottom: 0;
     }
-    
+
     form li {
         width: calc(100% - 9rem);
         margin-bottom: 0;
     }
-    
+
     form li:last-child{
         width: 9rem;
         text-align: right;
@@ -68,7 +67,7 @@ Reset
 /**/
 
 
-/* 
+/*
 Commons
 */
     .flexBox{
@@ -156,7 +155,7 @@ Commons
 
 
 
-/* 
+/*
 Global
 */
     header, main, footer{
@@ -170,9 +169,13 @@ Global
     }
 
     header, footer{
-        height: 5rem; 
-    } 
-    
+        height: 5rem;
+    }
+
+    header nav a:not(:last-child) {
+        margin-right: 2rem;
+    }
+
     footer p {
         margin-bottom: 0;
         text-transform: uppercase;
@@ -187,9 +190,9 @@ Global
 /**/
 
 /*
-Index
+Post Preview
 */
-    #index .comments-preview {
+    .comments-preview {
         position: absolute;
         background: white;
         padding: 3rem;

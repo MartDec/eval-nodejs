@@ -13,6 +13,12 @@
         <title>Node.js Boiler plate</title>
     </head>
     <body>
-        <header class="flexBox flexColumn">
+        <header class="flexBox spaceBetween alignCenter">
             <h1>Node.js Boiler plate by <a href="https://dwsapp.io" target="_blank">dwsapp.io</a></h1>
-        </header> 
+            <% if (data.user !== null && data.user !== undefined) { %>
+                <nav>
+                    <a href="/">home</a>
+                    <a href="/posts">posts</a>
+                </nav>
+            <% } %>
+        </header>

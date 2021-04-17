@@ -1,10 +1,10 @@
-/* 
+/*
 Imports
 */
     const Models = require('../models/index');
 //
 
-/*  
+/*
 CRUD methods
 */
     const createOne = req => {
@@ -14,7 +14,7 @@ CRUD methods
             .catch( err => reject(err) )
         })
     }
- 
+
     const readAll = () => {
         return new Promise( (resolve, reject) => {
             Models.post.find()
@@ -24,6 +24,23 @@ CRUD methods
                     path: 'comments',
                     populate: { path: 'author' }
                 })
+                .exec( (err, data) => {
+                    if( err ){ return reject(err) }
+                    else{ return resolve(data) }
+                })
+        })
+    }
+
+    const readLatest = () => {
+        return new Promise((resolve, reject) => {
+            Models.post.find()
+                .populate('author', [ '-password' ])
+                .populate('likes')
+                .populate({
+                    path: 'comments',
+                    populate: { path: 'author' }
+                })
+                .limit(6)
                 .exec( (err, data) => {
                     if( err ){ return reject(err) }
                     else{ return resolve(data) }
@@ -78,11 +95,12 @@ CRUD methods
     }
 //
 
-/* 
+/*
 Export controller methods
 */
     module.exports = {
         readAll,
+        readLatest,
         readOne,
         createOne,
         updateOne,

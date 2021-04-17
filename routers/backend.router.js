@@ -17,15 +17,21 @@ Routes definition
     class BackendRouter {
         constructor( { passport } ){
             this.passport = passport
-            this.router = express.Router(); 
-        } 
+            this.router = express.Router();
+        }
 
         routes(){
             // [BACKOFFICE] Render index vue
             this.router.get('/', this.passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), (req, res) => {
+                Controllers.post.readLatest()
+                    .then( apiResponse => renderSuccessVue('index', req, res, apiResponse,  'Request succeed', false))
+                    .catch( apiError => renderErrorVue('index', req, res, apiError,  'Request failed') )
+            })
+
+            this.router.get('/posts', this.passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), (req, res) => {
                 Controllers.post.readAll()
-                .then( apiResponse => renderSuccessVue('index', req, res, apiResponse,  'Request succeed', false))
-                .catch( apiError => renderErrorVue('index', req, res, apiError,  'Request failed') )
+                    .then( apiResponse => renderSuccessVue('posts', req, res, apiResponse,  'Request succeed', false))
+                    .catch( apiError => renderErrorVue('index', req, res, apiError,  'Request failed') )
             })
 
             // [BACKOFFICE] Render entity vue
@@ -45,13 +51,13 @@ Routes definition
 
             // [BACKOFFICE] get data from client to log user and render index vue
             this.router.post('/login', (req, res) => {
-                
+
                 // Check body data
-                if( typeof req.body === 'undefined' || req.body === null || Object.keys(req.body).length === 0 ){ 
+                if( typeof req.body === 'undefined' || req.body === null || Object.keys(req.body).length === 0 ){
                     return renderErrorVue('index', req, res, 'No data provided',  'Request failed')
                 }
                 else{
-                    
+
                     // Check body data
                     const { ok, extra, miss } = checkFields( Mandatory.login, req.body );
 
@@ -97,7 +103,7 @@ Routes definition
                 }
 
                 // Check body data
-                if( typeof req.body === 'undefined' || req.body === null || Object.keys(req.body).length === 0 ){ 
+                if( typeof req.body === 'undefined' || req.body === null || Object.keys(req.body).length === 0 ){
                     return renderErrorVue('index', req, res, 'No data provided',  'Request failed')
                 }
                 else{
